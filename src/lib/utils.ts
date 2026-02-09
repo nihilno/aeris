@@ -27,13 +27,14 @@ export function getMoonPhase(phase: number): string {
   if (phase < 0 || phase > 1) return "Invalid phase";
 
   const phases = [
-    { max: 0.0, name: "New Moon" },
-    { max: 0.25, name: "Waxing Crescent" },
-    { max: 0.5, name: "First Quarter" },
-    { max: 0.5, name: "Waxing Gibbous" },
-    { max: 0.75, name: "Full Moon" },
-    { max: 0.75, name: "Waning Gibbous" },
-    { max: 1.0, name: "Last Quarter" },
+    { max: 0.0625, name: "New Moon" },
+    { max: 0.1875, name: "Waxing Crescent" },
+    { max: 0.3125, name: "First Quarter" },
+    { max: 0.4375, name: "Waxing Gibbous" },
+    { max: 0.5625, name: "Full Moon" },
+    { max: 0.6875, name: "Waning Gibbous" },
+    { max: 0.8125, name: "Last Quarter" },
+    { max: 1.0, name: "Waning Crescent" },
   ];
 
   return phases.find((p) => phase <= p.max)?.name ?? "Unknown";

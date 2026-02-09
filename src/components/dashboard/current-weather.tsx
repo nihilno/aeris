@@ -1,24 +1,21 @@
+import { EmptyWeather } from "@/components/global/empty";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { CARD_STYLE } from "@/constants";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
+  cn,
   formatDateTime,
   formatHumidity,
   formatTemperature,
   formatWindSpeed,
 } from "@/lib/utils";
+import CardLabel from "./card-label";
 
 function CurrentWeather({ data, isPending }: CurrentWeatherProps) {
   if (isPending)
     return <CurrentWeatherSkeleton className="card-with-lines h-[490px]" />;
-  if (!data) return <h1>No data available</h1>;
+  if (!data) return <EmptyWeather />;
 
   const {
     summary,
@@ -31,13 +28,12 @@ function CurrentWeather({ data, isPending }: CurrentWeatherProps) {
   } = data;
 
   return (
-    <Card className="card-with-lines space-y-4 shadow">
-      <CardHeader>
-        <CardTitle className="text-2xl font-semibold">
-          Current Weather
-        </CardTitle>
-        <CardDescription>Check the latest weather conditions.</CardDescription>
-      </CardHeader>
+    <Card className={cn(CARD_STYLE, "card-with-lines space-y-4 shadow")}>
+      <CardLabel
+        title="Current Weather"
+        description="Check the latest weather conditions."
+      />
+
       <CardContent className="flex flex-col items-center gap-8 text-center">
         <h1 className="text-6xl font-bold">{formatTemperature(temperature)}</h1>
 

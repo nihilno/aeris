@@ -3,7 +3,7 @@ const API_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 
 // Fetches
 async function getWeatherData(lat: number, lon: number) {
-  const url = `https://api.pirateweather.net/forecast/${API_KEY}/${lat},${lon}?exclude=minutely,alerts&lang=en&units=si`;
+  const url = `https://api.pirateweather.net/forecast/${API_KEY}/${lat},${lon}?exclude=minutely,alerts&lang=en&units=si&icon=pirate`;
 
   const response = await fetch(url);
 

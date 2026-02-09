@@ -140,6 +140,11 @@ declare global {
   };
 
   type WeatherIcon = keyof typeof ICONS;
+
+  type CardLabelProps = {
+    title?: string;
+    description?: string;
+  };
 }
 
 export {};
