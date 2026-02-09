@@ -6,7 +6,7 @@ import Map from "./components/map/map";
 
 function App() {
   return (
-    <section className="container mx-auto grid grid-cols-1 gap-4 bg-[radial-gradient(circle_at_center,var(--color-foreground),transparent_35%)] p-4">
+    <section className="container mx-auto grid grid-cols-1 gap-4 p-4">
       <Map />
 
       <CurrentWeather />

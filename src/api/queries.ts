@@ -1,3 +1,4 @@
+import { useCoords } from "@/context/coords-context";
 import { useQuery } from "@tanstack/react-query";
 const API_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 
@@ -17,8 +18,8 @@ async function getWeatherData(lat: number, lon: number) {
 
 // Hooks
 export function useWeatherData() {
-  const lat = 10;
-  const lon = 25;
+  const { coords } = useCoords();
+  const { lat, lng: lon } = coords;
 
   return useQuery({
     queryKey: ["weather-data", lat, lon],

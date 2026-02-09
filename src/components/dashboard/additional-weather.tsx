@@ -1,4 +1,5 @@
 import { useWeatherData } from "@/api/queries";
+import LightRay from "@/bits/light-ray";
 import { EmptyWeather } from "@/components/global/empty";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import { Card, CardContent } from "@/components/ui/card";
@@ -28,28 +29,32 @@ function AdditionalWeather() {
   };
 
   return (
-    <Card
-      className={cn(CARD_STYLE, "card-with-diagonal-lines space-y-4 shadow")}
-    >
-      <CardLabel
-        title="Additional Weather Info"
-        description=" Get more details about the current weather conditions."
-      />
+    <section className="relative">
+      <LightRay direction="top-right" />
 
-      <CardContent>
-        <article className="space-y-4">
-          {Object.entries(details).map(([label, value]) => (
-            <div className="grid grid-cols-3 items-center gap-1" key={label}>
-              <h5 className="text-muted-foreground shrink-0 place-self-start">
-                {label}
-              </h5>
-              <div className="bg-muted-foreground/15 h-px w-full rounded-full" />
-              <p className="shrink-0 place-self-end">{value}</p>
-            </div>
-          ))}
-        </article>
-      </CardContent>
-    </Card>
+      <Card
+        className={cn(CARD_STYLE, "card-with-diagonal-lines space-y-4 shadow")}
+      >
+        <CardLabel
+          title="Additional Weather Info"
+          description=" Get more details about the current weather conditions."
+        />
+
+        <CardContent>
+          <article className="space-y-4">
+            {Object.entries(details).map(([label, value]) => (
+              <div className="grid grid-cols-3 items-center gap-1" key={label}>
+                <h5 className="text-muted-foreground shrink-0 place-self-start">
+                  {label}
+                </h5>
+                <div className="bg-muted-foreground/15 h-px w-full rounded-full" />
+                <p className="shrink-0 place-self-end">{value}</p>
+              </div>
+            ))}
+          </article>
+        </CardContent>
+      </Card>
+    </section>
   );
 }
 

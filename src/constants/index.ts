@@ -43,4 +43,4 @@ export const ICONS = {
   mixed: "🌫️",
 } as const;
 
-export const CARD_STYLE = "hover:bg-card/75 transition";
+export const CARD_STYLE = "hover:bg-card/80 transition";
