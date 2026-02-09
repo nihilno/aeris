@@ -124,21 +124,6 @@ declare global {
     version: string;
   };
 
-  type CurrentWeatherProps = {
-    data: Currently | undefined;
-    isPending: boolean;
-  };
-
-  type HourlyForecastProps = {
-    data: Hourly | undefined;
-    isPending: boolean;
-  };
-
-  type DailyForecastProps = {
-    data: Daily | undefined;
-    isPending: boolean;
-  };
-
   type WeatherIcon = keyof typeof ICONS;
 
   type CardLabelProps = {

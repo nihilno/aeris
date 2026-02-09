@@ -1,3 +1,4 @@
+import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
@@ -7,19 +8,22 @@ import { cn, formatDateTime, formatTemperature } from "@/lib/utils";
 import { ChevronsLeftRight } from "lucide-react";
 import CardLabel from "./card-label";
 
-function HourlyForecast({ data, isPending }: HourlyForecastProps) {
+function HourlyForecast() {
+  const { data, isPending, error } = useWeatherData();
+
   if (isPending)
     return (
       <CurrentWeatherSkeleton className="card-with-diagonal-lines h-[254px]" />
     );
-  if (!data || !data.data) return <EmptyWeather />;
+  if (error) return <h1>error</h1>;
+  if (!data) return <EmptyWeather />;
 
   return (
     <Card className={cn(CARD_STYLE, "card-with-diagonal-lines shadow")}>
       <CardLabel title="Hourly Forecast" />
 
       <CardContent className="scrollbar-thin flex items-center gap-6 overflow-x-scroll pb-8">
-        {data.data.map((hour, index) => (
+        {data.hourly.data.map((hour, index) => (
           <SingleForecast key={index} hourlyData={hour} />
         ))}
       </CardContent>

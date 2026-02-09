@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 function Loader({ className }: { className?: string }) {
   return (
     <section>
-      <Loader2 className={cn("size-5.5 animate-spin", className)} />
+      <Loader2 className={cn("size-5.5 animate-spin opacity-75", className)} />
     </section>
   );
 }

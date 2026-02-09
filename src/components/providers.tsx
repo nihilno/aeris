@@ -4,13 +4,19 @@ import { queryClient } from "../lib/react-query";
 function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <CoordsProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </CoordsProvider>
     </ThemeProvider>
   );
 }
 
 export default Providers;
 
+// Theme provider
+import { CoordsProvider } from "@/context/coords-context";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";

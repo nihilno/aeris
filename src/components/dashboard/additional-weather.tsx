@@ -1,3 +1,4 @@
+import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import { Card, CardContent } from "@/components/ui/card";
@@ -5,14 +6,17 @@ import { CARD_STYLE } from "@/constants";
 import { cn, formatDateTime, getMoonPhase } from "@/lib/utils";
 import CardLabel from "./card-label";
 
-function AdditionalWeather({ data, isPending }: DailyForecastProps) {
+function AdditionalWeather() {
+  const { data, isPending, error } = useWeatherData();
+
   if (isPending)
     return (
       <CurrentWeatherSkeleton className="card-with-diagonal-lines h-[382px]" />
     );
-  if (!data || !data.data) return <EmptyWeather />;
+  if (error) return <h1>error</h1>;
+  if (!data) return <EmptyWeather />;
 
-  const today = data?.data[1] || data.data[0];
+  const today = data.daily.data[1] || data.daily.data[0];
   const details = {
     "Cloudiness (%)": `${today.cloudCover * 100}%`,
     "UV Index": today.uvIndex,

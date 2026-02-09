@@ -16,7 +16,10 @@ async function getWeatherData(lat: number, lon: number) {
 }
 
 // Hooks
-export function useWeatherData(lat: number, lon: number) {
+export function useWeatherData() {
+  const lat = 10;
+  const lon = 25;
+
   return useQuery({
     queryKey: ["weather-data", lat, lon],
     queryFn: () => getWeatherData(lat, lon),

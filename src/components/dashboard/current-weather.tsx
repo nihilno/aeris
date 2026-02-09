@@ -1,3 +1,4 @@
+import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
@@ -12,9 +13,12 @@ import {
 } from "@/lib/utils";
 import CardLabel from "./card-label";
 
-function CurrentWeather({ data, isPending }: CurrentWeatherProps) {
+function CurrentWeather() {
+  const { data, isPending, error } = useWeatherData();
+
   if (isPending)
     return <CurrentWeatherSkeleton className="card-with-lines h-[490px]" />;
+  if (error) return <h1>error</h1>;
   if (!data) return <EmptyWeather />;
 
   const {
@@ -25,7 +29,7 @@ function CurrentWeather({ data, isPending }: CurrentWeatherProps) {
     humidity,
     windSpeed,
     icon,
-  } = data;
+  } = data.currently;
 
   return (
     <Card className={cn(CARD_STYLE, "card-with-lines space-y-4 shadow")}>

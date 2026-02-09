@@ -1,3 +1,4 @@
+import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
@@ -21,10 +22,13 @@ import {
 } from "lucide-react";
 import CardLabel from "./card-label";
 
-function DailyForecast({ data, isPending }: DailyForecastProps) {
+function DailyForecast() {
+  const { data, isPending, error } = useWeatherData();
+
   if (isPending)
     return <CurrentWeatherSkeleton className="card-with-lines h-[566px]" />;
-  if (!data || !data.data) return <EmptyWeather />;
+  if (error) return <h1>error</h1>;
+  if (!data) return <EmptyWeather />;
 
   return (
     <Card
@@ -67,7 +71,7 @@ function DailyForecast({ data, isPending }: DailyForecastProps) {
             </TableRow>
           </TableHeader>
           <TableBody className="text-muted-foreground">
-            {data.data.map((day, index) => (
+            {data.daily.data.map((day, index) => (
               <TableRow key={index}>
                 <TableCell className="w-15">
                   {formatDateTime(day.time, "dd EEE")}
