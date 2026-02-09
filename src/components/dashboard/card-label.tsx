@@ -2,9 +2,13 @@ import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 function CardLabel({ title, description }: CardLabelProps) {
   return (
-    <CardHeader>
-      <CardTitle className="text-2xl font-semibold">{title}</CardTitle>
-      {description && <CardDescription>{description}</CardDescription>}
+    <CardHeader className="relative z-50 text-center sm:text-left">
+      <CardTitle className="text-2xl font-semibold md:text-3xl">
+        {title}
+      </CardTitle>
+      {description && (
+        <CardDescription className="md:text-lg">{description}</CardDescription>
+      )}
     </CardHeader>
   );
 }

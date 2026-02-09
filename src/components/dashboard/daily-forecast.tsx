@@ -35,9 +35,7 @@ function DailyForecast() {
     <section className="relative">
       <LightRay direction="top-left" />
 
-      <Card
-        className={cn(CARD_STYLE, "card-with-diagonal-lines space-y-4 shadow")}
-      >
+      <Card className={cn(CARD_STYLE, "card-with-lines space-y-4 shadow")}>
         <CardLabel
           title="Daily Forecast"
           description="Check the weather for the upcoming days."
@@ -47,34 +45,43 @@ function DailyForecast() {
             <TableHeader>
               <TableRow>
                 <TableHead>
-                  <Calendar className="size-5.5" aria-hidden="true" />
+                  <Calendar
+                    className="size-5.5 md:size-6.5"
+                    aria-hidden="true"
+                  />
                   <span className="sr-only">Date</span>
                 </TableHead>
                 <TableHead className="flex items-center justify-center">
-                  <SunMedium className="size-5.5" aria-hidden="true" />
+                  <SunMedium
+                    className="size-5.5 md:size-6.5"
+                    aria-hidden="true"
+                  />
                   <span className="sr-only">Weather</span>
                 </TableHead>
                 <TableHead>
-                  <Thermometer className="size-5.5" aria-hidden="true" />
+                  <Thermometer
+                    className="size-5.5 md:size-6.5"
+                    aria-hidden="true"
+                  />
                   <span className="sr-only">Average Temperature</span>
                 </TableHead>
                 <TableHead>
                   <ThermometerSun
-                    className="text-destructive size-5.5"
+                    className="text-destructive size-5.5 md:size-6.5"
                     aria-hidden="true"
                   />
                   <span className="sr-only">Max Temperature</span>
                 </TableHead>
                 <TableHead>
                   <ThermometerSnowflake
-                    className="size-5.5 text-blue-500"
+                    className="size-5.5 text-blue-500 md:size-6.5"
                     aria-hidden="true"
                   />
                   <span className="sr-only">Min Temperature</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="text-muted-foreground">
+            <TableBody className="text-muted-foreground md:text-base">
               {data.daily.data.map((day, index) => (
                 <TableRow key={index}>
                   <TableCell className="w-15">

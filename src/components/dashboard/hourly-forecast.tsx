@@ -28,7 +28,7 @@ function HourlyForecast() {
         ))}
       </CardContent>
       <CardFooter className="mx-auto -mt-4">
-        <ChevronsLeftRight className="text-muted-foreground" />
+        <ChevronsLeftRight className="text-muted-foreground size-8" />
       </CardFooter>
     </Card>
   );
@@ -40,10 +40,16 @@ function SingleForecast({ hourlyData }: { hourlyData: HourlyData }) {
   const { time, icon, temperature } = hourlyData;
 
   return (
-    <div className="border-muted-foreground/50 hover:bg-accent/75 flex shrink-0 flex-col items-center gap-2 rounded-xl border border-dashed px-6 py-1 transition hover:border-solid">
-      <p className="text-sm">{formatDateTime(time, "HH:mm")}</p>
-      <WeatherIcon icon={icon} />
-      <p>{formatTemperature(temperature)}</p>
-    </div>
+    <section className="flex flex-col items-center gap-2 md:gap-4">
+      <div className="border-muted-foreground/50 hover:bg-accent/75 flex shrink-0 flex-col items-center gap-2 rounded-xl border border-dashed px-6 py-1 transition hover:border-solid">
+        <p className="text-sm md:text-base">{formatDateTime(time, "HH:mm")}</p>
+        <WeatherIcon icon={icon} className="text-4xl md:text-5xl" />
+        <p className="md:text-lg">{formatTemperature(temperature)}</p>
+      </div>
+
+      <small className="m text-xs sm:text-sm">
+        {formatDateTime(time, "MMM d")}
+      </small>
+    </section>
   );
 }

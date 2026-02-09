@@ -4,7 +4,7 @@ function LightRay({ direction = "top-center" }: { direction?: RaysOrigin }) {
   return (
     <div
       className="overflow-hidden rounded-xl"
-      style={{ width: "100%", height: "600px", position: "absolute" }}
+      style={{ width: "100%", height: "100%", position: "absolute" }}
     >
       <LightRays
         raysOrigin={direction}

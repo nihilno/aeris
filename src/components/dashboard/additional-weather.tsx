@@ -43,12 +43,15 @@ function AdditionalWeather() {
         <CardContent>
           <article className="space-y-4">
             {Object.entries(details).map(([label, value]) => (
-              <div className="grid grid-cols-3 items-center gap-1" key={label}>
-                <h5 className="text-muted-foreground shrink-0 place-self-start">
+              <div
+                className="grid grid-cols-2 items-center gap-1 text-sm sm:grid-cols-3 md:text-base"
+                key={label}
+              >
+                <div className="text-muted-foreground shrink-0 place-self-start">
                   {label}
-                </h5>
-                <div className="bg-muted-foreground/15 h-px w-full rounded-full" />
-                <p className="shrink-0 place-self-end">{value}</p>
+                </div>
+                <div className="bg-muted-foreground/15 hidden h-px w-full rounded-full sm:block" />
+                <p className="shrink-0 place-self-end text-right">{value}</p>
               </div>
             ))}
           </article>

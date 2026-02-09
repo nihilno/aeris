@@ -9,7 +9,9 @@ function WeatherIcon({
   className?: string;
 }) {
   return (
-    <div className={cn("text-2xl select-none", className)}>{ICONS[icon]}</div>
+    <div className={cn("relative z-50 text-2xl select-none", className)}>
+      {ICONS[icon]}
+    </div>
   );
 }
 

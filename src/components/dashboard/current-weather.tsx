@@ -22,6 +22,8 @@ function CurrentWeather() {
   if (error) return <h1>error</h1>;
   if (!data) return <EmptyWeather />;
 
+  console.log(data);
+
   const {
     summary,
     time,
@@ -37,46 +39,55 @@ function CurrentWeather() {
       <LightRay />
 
       <Card className={cn(CARD_STYLE, "card-with-lines space-y-4 shadow")}>
-        <CardLabel
-          title="Current Weather"
-          description="Check the latest weather conditions."
-        />
+        <CardLabel title="Current Weather" description={data.daily.summary} />
 
-        <CardContent className="flex flex-col items-center gap-8 text-center">
-          <h1 className="text-6xl font-bold">
-            {formatTemperature(temperature)}
-          </h1>
+        <section className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <CardContent className="flex flex-col items-center gap-8 text-center">
+            <h1 className="relative z-50 text-6xl font-bold">
+              {formatTemperature(temperature)}
+            </h1>
 
-          <div className="flex flex-col items-center gap-2">
-            <WeatherIcon icon={icon} className="text-5xl" />
-            <p>{summary}</p>
-          </div>
+            <div className="flex flex-col items-center gap-2">
+              <WeatherIcon icon={icon} className="text-5xl lg:text-6xl" />
+              <p>{summary}</p>
+            </div>
 
-          <div className="flex flex-col items-center">
-            <h2 className="text-muted-foreground text-lg">Local Time</h2>
-            <p className="text-2xl font-semibold">
-              {formatDateTime(time, "HH:mm")}
-            </p>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <div className="flex w-full items-center justify-between gap-4">
-            <div className="text-center">
-              <h4 className="text-muted-foreground">Feels like</h4>
-              <p className="text-lg">
-                {formatTemperature(apparentTemperature)}
-              </p>
+            <section className="flex flex-col items-center gap-12 sm:flex-row">
+              <div className="flex flex-col items-center">
+                <h2 className="text-muted-foreground text-lg">
+                  {data.timezone}
+                </h2>
+                <p className="text-2xl font-semibold">
+                  {data.latitude}&deg;&nbsp;
+                  {data.latitude < 0 ? "S" : "N"}, {data.longitude}&deg;&nbsp;
+                  {data.longitude < 0 ? "W" : "E"}
+                </p>
+              </div>
+              <div className="flex flex-col items-center">
+                <h2 className="text-muted-foreground text-lg">Local Time</h2>
+                <p className="text-2xl font-semibold">
+                  {formatDateTime(time, "HH:mm")}
+                </p>
+              </div>
+            </section>
+          </CardContent>
+          <CardFooter className="border-t">
+            <div className="flex w-full items-center justify-between gap-4 text-sm sm:text-base md:flex-col lg:gap-12 lg:text-2xl">
+              <div className="text-center">
+                <h4 className="text-muted-foreground">Feels like</h4>
+                <p>{formatTemperature(apparentTemperature)}</p>
+              </div>
+              <div className="text-center">
+                <h4 className="text-muted-foreground">Humidity</h4>
+                <p>{formatHumidity(humidity)}</p>
+              </div>
+              <div className="text-center">
+                <h4 className="text-muted-foreground">Wind</h4>
+                <p>{formatWindSpeed(windSpeed)}</p>
+              </div>
             </div>
-            <div className="text-center">
-              <h4 className="text-muted-foreground">Humidity</h4>
-              <p className="text-lg">{formatHumidity(humidity)}</p>
-            </div>
-            <div className="text-center">
-              <h4 className="text-muted-foreground">Wind</h4>
-              <p className="text-lg">{formatWindSpeed(windSpeed)}</p>
-            </div>
-          </div>
-        </CardFooter>
+          </CardFooter>
+        </section>
       </Card>
     </section>
   );
