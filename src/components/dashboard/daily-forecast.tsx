@@ -1,22 +1,36 @@
-import { Sun } from "lucide-react";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "@/components/ui/table";
+import { formatDateTime, formatTemperature } from "@/lib/utils";
+import {
+  Calendar,
+  Cloud,
+  Thermometer,
+  ThermometerSnowflake,
+  ThermometerSun,
+} from "lucide-react";
+import WeatherIcon from "../global/weather-icon";
+import { CurrentWeatherSkeleton } from "../skeletons/cards";
 
-function DailyForecast() {
+function DailyForecast({ data, isPending }: DailyForecastProps) {
+  if (isPending)
+    return <CurrentWeatherSkeleton className="card-with-lines h-[566px]" />;
+  if (!data || !data.data) return <h1>No data available</h1>;
+
   return (
-    <Card className="space-y-4 shadow">
+    <Card className="card-with-lines space-y-4 shadow">
       <CardHeader>
         <CardTitle className="text-2xl font-semibold">Daily Forecast</CardTitle>
         <CardDescription>
@@ -27,29 +41,37 @@ function DailyForecast() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Day</TableHead>
-              <TableHead>Weather</TableHead>
-              <TableHead>Temp</TableHead>
-              <TableHead>Min</TableHead>
-              <TableHead>Max</TableHead>
+              <TableHead>
+                <Calendar className="size-5.5" />
+              </TableHead>
+              <TableHead className="flex items-center justify-center">
+                <Cloud className="size-5.5" />
+              </TableHead>
+              <TableHead>
+                <Thermometer className="size-5.5" />
+              </TableHead>
+              <TableHead>
+                <ThermometerSun className="text-destructive size-5.5" />
+              </TableHead>
+              <TableHead>
+                <ThermometerSnowflake className="size-5.5 text-blue-500" />
+              </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {Array.from({ length: 7 }).map((_, index) => (
+          <TableBody className="text-muted-foreground">
+            {data.data.map((day, index) => (
               <TableRow key={index}>
-                <TableHead>Thu</TableHead>
-                <TableHead>
-                  <Sun />
-                </TableHead>
-                <TableHead>
-                  <p>33&deg;C</p>
-                </TableHead>
-                <TableHead>
-                  <p className="text-muted-foreground">25&deg;C</p>
-                </TableHead>
-                <TableHead>
-                  <p className="text-muted-foreground">35&deg;C</p>
-                </TableHead>
+                <TableCell>{formatDateTime(day.time, "EEE")}</TableCell>
+                <TableCell className="text-center">
+                  <WeatherIcon icon={day.icon} />
+                </TableCell>
+                <TableCell>
+                  {formatTemperature(
+                    (day.temperatureHigh + day.temperatureLow) / 2,
+                  )}
+                </TableCell>
+                <TableCell>{formatTemperature(day.temperatureHigh)}</TableCell>
+                <TableCell>{formatTemperature(day.temperatureLow)}</TableCell>
               </TableRow>
             ))}
           </TableBody>

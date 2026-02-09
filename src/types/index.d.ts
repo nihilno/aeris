@@ -1,3 +1,5 @@
+import type { ICONS } from "@/constants";
+
 declare global {
   type WeatherResponse = {
     latitude: number;
@@ -14,7 +16,7 @@ declare global {
   type Currently = {
     time: number;
     summary: string;
-    icon: string;
+    icon: WeatherIcon;
     nearestStormDistance: number;
     nearestStormBearing: number;
     precipIntensity: number;
@@ -37,14 +39,14 @@ declare global {
 
   type Hourly = {
     summary: string;
-    icon: string;
+    icon: WeatherIcon;
     data: HourlyData[];
   };
 
   type HourlyData = {
     time: number;
     summary: string;
-    icon: string;
+    icon: WeatherIcon;
     precipIntensity: number;
     precipProbability: number;
     precipIntensityError: number;
@@ -68,14 +70,14 @@ declare global {
 
   type Daily = {
     summary: string;
-    icon: string;
+    icon: WeatherIcon;
     data: DailyData[];
   };
 
   type DailyData = {
     time: number;
     summary: string;
-    icon: string;
+    icon: WeatherIcon;
     sunriseTime: number;
     sunsetTime: number;
     moonPhase: number;
@@ -121,6 +123,23 @@ declare global {
     units: string;
     version: string;
   };
+
+  type CurrentWeatherProps = {
+    data: Currently | undefined;
+    isPending: boolean;
+  };
+
+  type HourlyForecastProps = {
+    data: Hourly | undefined;
+    isPending: boolean;
+  };
+
+  type DailyForecastProps = {
+    data: Daily | undefined;
+    isPending: boolean;
+  };
+
+  type WeatherIcon = keyof typeof ICONS;
 }
 
 export {};

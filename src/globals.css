@@ -84,7 +84,7 @@
   --secondary-foreground: oklch(0.8367 0.0849 285.9111);
   --muted: oklch(0.271 0.0621 281.4377);
   --muted-foreground: oklch(0.7166 0.0462 285.1741);
-  --accent: oklch(0.3354 0.0828 280.9705);
+  --accent: oklch(28.098% 0.07546 280.395);
   --accent-foreground: oklch(0.9185 0.0257 285.8834);
   --destructive: oklch(0.6861 0.2061 14.9941);
   --destructive-foreground: oklch(1 0 0);
@@ -201,5 +201,45 @@
   svg,
   video {
     @apply select-none;
+  }
+}
+
+@layer utilities {
+  .card-with-lines {
+    position: relative;
+    background-color: var(--color-card);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 20px 20px; /* spacing between lines */
+  }
+
+  .card-with-diagonal-lines {
+    position: relative;
+    background-color: var(--color-card);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    /* crossing diagonal lines */
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 1px,
+        transparent 20px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 1px,
+        transparent 1px,
+        transparent 20px
+      );
   }
 }

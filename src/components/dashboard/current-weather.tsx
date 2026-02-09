@@ -1,4 +1,5 @@
-import { Cloud } from "lucide-react";
+import WeatherIcon from "@/components/global/weather-icon";
+import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import {
   Card,
   CardContent,
@@ -6,11 +7,31 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../ui/card";
+} from "@/components/ui/card";
+import {
+  formatDateTime,
+  formatHumidity,
+  formatTemperature,
+  formatWindSpeed,
+} from "@/lib/utils";
 
-function CurrentWeather() {
+function CurrentWeather({ data, isPending }: CurrentWeatherProps) {
+  if (isPending)
+    return <CurrentWeatherSkeleton className="card-with-lines h-[490px]" />;
+  if (!data) return <h1>No data available</h1>;
+
+  const {
+    summary,
+    time,
+    temperature,
+    apparentTemperature,
+    humidity,
+    windSpeed,
+    icon,
+  } = data;
+
   return (
-    <Card className="space-y-4 shadow">
+    <Card className="card-with-lines space-y-4 shadow">
       <CardHeader>
         <CardTitle className="text-2xl font-semibold">
           Current Weather
@@ -18,31 +39,33 @@ function CurrentWeather() {
         <CardDescription>Check the latest weather conditions.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center gap-8 text-center">
-        <h1 className="text-6xl font-bold">33&deg;C</h1>
+        <h1 className="text-6xl font-bold">{formatTemperature(temperature)}</h1>
 
-        <div className="flex flex-col items-center">
-          <Cloud className="text-muted-foreground size-10" />
-          <p>Scattered Clouds</p>
+        <div className="flex flex-col items-center gap-2">
+          <WeatherIcon icon={icon} className="text-5xl" />
+          <p>{summary}</p>
         </div>
 
         <div className="flex flex-col items-center">
           <h2 className="text-muted-foreground text-lg">Local Time</h2>
-          <p className="text-2xl font-semibold">04:48AM</p>
+          <p className="text-2xl font-semibold">
+            {formatDateTime(time, "HH:mm")}
+          </p>
         </div>
       </CardContent>
       <CardFooter>
         <div className="flex w-full items-center justify-between gap-4">
           <div className="text-center">
             <h4 className="text-muted-foreground">Feels like</h4>
-            <p className="text-lg">35&deg;C</p>
+            <p className="text-lg">{formatTemperature(apparentTemperature)}</p>
           </div>
           <div className="text-center">
             <h4 className="text-muted-foreground">Humidity</h4>
-            <p className="text-lg">60%</p>
+            <p className="text-lg">{formatHumidity(humidity)}</p>
           </div>
           <div className="text-center">
             <h4 className="text-muted-foreground">Wind</h4>
-            <p className="text-lg">15 km/h</p>
+            <p className="text-lg">{formatWindSpeed(windSpeed)}</p>
           </div>
         </div>
       </CardFooter>
