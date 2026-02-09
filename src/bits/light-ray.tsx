@@ -2,7 +2,10 @@ import LightRays, { type RaysOrigin } from "./LightRays";
 
 function LightRay({ direction = "top-center" }: { direction?: RaysOrigin }) {
   return (
-    <div style={{ width: "100%", height: "600px", position: "absolute" }}>
+    <div
+      className="overflow-hidden rounded-xl"
+      style={{ width: "100%", height: "600px", position: "absolute" }}
+    >
       <LightRays
         raysOrigin={direction}
         raysColor="#ffffff"

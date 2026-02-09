@@ -1,6 +1,8 @@
 import { useCoords } from "@/context/coords-context";
+import { MaptilerLayer } from "@maptiler/leaflet-maptilersdk";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, Marker, useMap } from "react-leaflet";
 
 function Map() {
   const { coords } = useCoords();
@@ -8,15 +10,14 @@ function Map() {
 
   return (
     <MapContainer
+      className="overflow-hidden rounded-xl shadow"
       center={[lat, lng]}
       zoom={5}
       style={{ height: "500px", width: "100%" }}
     >
       <MapClick />
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <MapTileLayer />
+
       <Marker position={[lat, lng]} />
     </MapContainer>
   );
@@ -34,6 +35,25 @@ function MapClick() {
     map.panTo([lat, lng]);
     setCoords({ lat, lng });
   });
+
+  return null;
+}
+
+function MapTileLayer() {
+  const map = useMap();
+
+  useEffect(() => {
+    const tileLayer = new MaptilerLayer({
+      style: "dataviz-dark",
+      apiKey: import.meta.env.VITE_MAP_TILER_API_KEY,
+    });
+
+    tileLayer.addTo(map);
+
+    return () => {
+      map.removeLayer(tileLayer);
+    };
+  }, [map]);
 
   return null;
 }

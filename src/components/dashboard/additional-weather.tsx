@@ -37,7 +37,7 @@ function AdditionalWeather() {
       >
         <CardLabel
           title="Additional Weather Info"
-          description=" Get more details about the current weather conditions."
+          description="Get more details about the current weather conditions."
         />
 
         <CardContent>
