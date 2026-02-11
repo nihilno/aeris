@@ -1,15 +1,16 @@
-import AdditionalWeather from "./components/dashboard/additional-weather";
-import CurrentWeather from "./components/dashboard/current-weather";
-import DailyForecast from "./components/dashboard/daily-forecast";
-import HourlyForecast from "./components/dashboard/hourly-forecast";
+import AdditionalWeather from "./components/dashboard/additional/additional-weather";
+import CurrentWeather from "./components/dashboard/current/current-weather";
+import DailyForecast from "./components/dashboard/daily/daily-forecast";
+import HourlyForecast from "./components/dashboard/hourly/hourly-forecast";
 import Footer from "./components/global/footer";
 import Map from "./components/map/map";
+import { ModeToggle } from "./components/mode-toggle";
 
 function App() {
   return (
     <section className="container mx-auto grid grid-cols-1 gap-4 p-4">
       <Map />
-
+      <ModeToggle />
       <CurrentWeather />
       <HourlyForecast />
 

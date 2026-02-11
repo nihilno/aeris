@@ -1,5 +1,6 @@
 import { useWeatherData } from "@/api/queries";
 import LightRay from "@/bits/light-ray";
+import CardLabel from "@/components/dashboard/card-label";
 import { EmptyWeather } from "@/components/global/empty";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
@@ -12,17 +13,14 @@ import {
   formatTemperature,
   formatWindSpeed,
 } from "@/lib/utils";
-import CardLabel from "./card-label";
 
 function CurrentWeather() {
   const { data, isPending, error } = useWeatherData();
 
   if (isPending)
-    return <CurrentWeatherSkeleton className="card-with-lines h-[490px]" />;
+    return <CurrentWeatherSkeleton className="card-with-lines h-[635px]" />;
   if (error) return <h1>error</h1>;
   if (!data) return <EmptyWeather />;
-
-  console.log(data);
 
   const {
     summary,
@@ -75,15 +73,17 @@ function CurrentWeather() {
             <div className="flex w-full items-center justify-between gap-4 text-sm sm:text-base md:flex-col lg:gap-12 lg:text-2xl">
               <div className="text-center">
                 <h4 className="text-muted-foreground">Feels like</h4>
-                <p>{formatTemperature(apparentTemperature)}</p>
+                <p className="text-base">
+                  {formatTemperature(apparentTemperature)}
+                </p>
               </div>
               <div className="text-center">
                 <h4 className="text-muted-foreground">Humidity</h4>
-                <p>{formatHumidity(humidity)}</p>
+                <p className="text-base">{formatHumidity(humidity)}</p>
               </div>
               <div className="text-center">
                 <h4 className="text-muted-foreground">Wind</h4>
-                <p>{formatWindSpeed(windSpeed)}</p>
+                <p className="text-base">{formatWindSpeed(windSpeed)}</p>
               </div>
             </div>
           </CardFooter>
