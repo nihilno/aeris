@@ -12,7 +12,7 @@ function SingleForecast({ hourlyData }: { hourlyData: HourlyData }) {
         <p className="md:text-lg">{formatTemperature(temperature)}</p>
       </div>
 
-      <small className="m text-xs sm:text-sm">
+      <small className="text-xs sm:text-sm">
         {formatDateTime(time, "MMM d")}
       </small>
     </section>

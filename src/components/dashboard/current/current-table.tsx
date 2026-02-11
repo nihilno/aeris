@@ -1,4 +1,5 @@
 import { useWeatherData } from "@/api/queries";
+import Error from "@/components/global/error";
 import WeatherIcon from "@/components/global/weather-icon";
 import {
   Table,
@@ -24,7 +25,7 @@ function CurrentTable() {
 
   if (isPending)
     return <CurrentWeatherSkeleton className="card-with-lines h-[430px]" />;
-  if (error) return <h1>error</h1>;
+  if (error) return <Error />;
   if (!data) return <EmptyWeather />;
 
   return (

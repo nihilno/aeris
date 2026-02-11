@@ -1,5 +1,6 @@
 import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
+import Error from "@/components/global/error";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import { CardContent } from "@/components/ui/card";
 import SingleForecast from "./single-forecast";
@@ -11,8 +12,8 @@ function HourlyContent() {
     return (
       <CurrentWeatherSkeleton className="card-with-diagonal-lines h-[165px]" />
     );
-  if (error) return <h1>error</h1>;
-  if (!data) return <EmptyWeather />;
+  if (error) return <Error />;
+  if (!data?.hourly?.data) return <EmptyWeather />;
 
   return (
     <CardContent className="scrollbar-thin flex items-center gap-6 overflow-x-scroll pb-8">

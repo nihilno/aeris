@@ -13,7 +13,7 @@ function Map() {
       className="overflow-hidden rounded-xl shadow"
       center={[lat, lng]}
       zoom={5}
-      style={{ height: "500px", width: "100%" }}
+      style={{ height: "400px", width: "100%" }}
     >
       <MapClick />
       <MapTileLayer />

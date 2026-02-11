@@ -2,6 +2,7 @@ import { useWeatherData } from "@/api/queries";
 import LightRay from "@/bits/light-ray";
 import CardLabel from "@/components/dashboard/card-label";
 import { EmptyWeather } from "@/components/global/empty";
+import Error from "@/components/global/error";
 import WeatherIcon from "@/components/global/weather-icon";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -19,7 +20,7 @@ function CurrentWeather() {
 
   if (isPending)
     return <CurrentWeatherSkeleton className="card-with-lines h-[635px]" />;
-  if (error) return <h1>error</h1>;
+  if (error) return <Error />;
   if (!data) return <EmptyWeather />;
 
   const {
@@ -56,10 +57,11 @@ function CurrentWeather() {
                   {data.timezone}
                 </h2>
                 <p className="text-2xl font-semibold">
-                  {data.latitude}&deg;&nbsp;
-                  {data.latitude < 0 ? "S" : "N"}, {data.longitude}&deg;&nbsp;
+                  {Math.abs(data.latitude)}&deg;&nbsp;
+                  {data.latitude < 0 ? "S" : "N"}, {Math.abs(data.longitude)}
+                  &deg;&nbsp;
                   {data.longitude < 0 ? "W" : "E"}
-                </p>
+                </p>{" "}
               </div>
               <div className="flex flex-col items-center">
                 <h2 className="text-muted-foreground text-lg">Local Time</h2>

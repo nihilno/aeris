@@ -1,5 +1,6 @@
 import { useWeatherData } from "@/api/queries";
 import { EmptyWeather } from "@/components/global/empty";
+import Error from "@/components/global/error";
 import { CurrentWeatherSkeleton } from "@/components/skeletons/cards";
 import { CardContent } from "@/components/ui/card";
 import { formatDateTime, getMoonPhase } from "@/lib/utils";
@@ -20,7 +21,7 @@ function AdditionalContent() {
     return (
       <CurrentWeatherSkeleton className="card-with-diagonal-lines h-[240px]" />
     );
-  if (error) return <h1>error</h1>;
+  if (error) return <Error />;
   if (!data) return <EmptyWeather />;
 
   const today = data.daily.data[1] || data.daily.data[0];
@@ -28,9 +29,9 @@ function AdditionalContent() {
     {
       label: "Cloudiness (%)",
       icon: Cloud,
-      value: `${today.cloudCover * 100}%`,
+      value: today.cloudCover != null ? `${today.cloudCover * 100}%` : "N/A",
     },
-    { label: "UV Index", icon: Sun, value: today.uvIndex },
+    { label: "UV Index", icon: Sun, value: today.uvIndex ?? "N/A" },
     {
       label: "Pressure (hPa)",
       icon: Gauge,
@@ -47,9 +48,12 @@ function AdditionalContent() {
       value: formatDateTime(today.sunsetTime, "HH:mm:ss"),
     },
     { label: "Moon Phase", icon: Moon, value: getMoonPhase(today.moonPhase) },
-    { label: "Visibility", icon: Eye, value: `${today.visibility}km` },
+    {
+      label: "Visibility",
+      icon: Eye,
+      value: today.visibility != null ? `${today.visibility}km` : "N/A",
+    },
   ];
-
   return (
     <CardContent>
       <article className="space-y-4">
